@@ -1,9 +1,9 @@
 public class Personaje {
 
-
+    
     protected Integer velocidad;
     protected Integer vida;
-    protected Integer danio;
+    protected Integer acciones;
     protected Integer tamanio;
     protected Integer x;
     protected Integer y;
