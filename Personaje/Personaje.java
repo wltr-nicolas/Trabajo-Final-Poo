@@ -1,25 +1,45 @@
-public class Personaje {
+import  java.util.ArrayList;
 
-    protected Integer vidaMaxima;
-    protected Integer vidaActual;
-    protected Integer tamanio;
-    protected Integer x;
-    protected Integer y;
-    protected Integer danio;
-    protected Integer armadura;
+public abstract class Personaje {
+    
+    /*Nivel de visibilidad (protected vs. private)
+El problema/riesgo: Poner los atributos en protected permite que cualquier clase hija (y cualquier clase dentro del mismo paquete)
+modifique los valores directamente sin pasar por validaciones.
+Solución: Aplicar encapsulamiento estricto definiendo los atributos como private y dando acceso a los hijos mediante métodos
+ Getters y Setters o métodos de lógica (ejemplo: recibirDano()). */
 
-    public Personaje(Integer vidaMaxima, Integer vidaActual, Integer tamanio, Integer x, Integer y, Integer danio, Integer armadura) {
+    private String nombre; 
+    private int vidaMaxima;
+    private int vidaActual;
+    private int tamanio;
+    private int x;
+    private int y;
+    private int danio;
+    private int armadura;
+    private ArrayList <Item> items;
+
+
+    
+    public Personaje(String nombre, int vidaMaxima, int tamanio, int x, int y, int danio, int armadura ) {
+        this.nombre = nombre;
         this.vidaMaxima = vidaMaxima;
-        this.vidaActual = vidaActual;
+        this.vidaActual = vidaMaxima;
         this.tamanio = tamanio;
         this.x = x;
         this.y = y;
         this.danio = danio;
         this.armadura = armadura;
+        this.items = new ArrayList<>();
+
     }
 
     public void recibirDano(int cantidad) {
-        this.vidaActual -= cantidad;
+        int danoReal = cantidad - this.armadura;
+        if (danoReal < 0) {
+            danoReal = 0;
+        }
+
+        this.vidaActual -= danoReal;
         if (this.vidaActual < 0) {
             this.vidaActual = 0;
         }
@@ -29,62 +49,26 @@ public class Personaje {
         return this.vidaActual > 0;
     }
 
-    // Getters y setters
-    public Integer getVidaMaxima() {
-        return vidaMaxima;
+    public void agregarItem(Item item) {
+        this.items.add(item);
     }
 
-    public void setVidaMaxima(Integer vidaMaxima) {
-        this.vidaMaxima = vidaMaxima;
-    }
+// MÉTODOS ABSTRACTOS:  para Hero y Enemigo
+    public abstract void realizarAccionPrincipal();
+    public abstract void ejecutarAccionAdicional();
 
-    public Integer getVidaActual() {
-        return vidaActual;
-    }
-
-    public void setVidaActual(Integer vidaActual) {
-        this.vidaActual = vidaActual;
-    }
-
-    public Integer getTamanio() {
-        return tamanio;
-    }
-
-    public void setTamanio(Integer tamanio) {
-        this.tamanio = tamanio;
-    }
-
-    public Integer getX() {
-        return x;
-    }
-
-    public void setX(Integer x) {
-        this.x = x;
-    }
-
-    public Integer getY() {
-        return y;
-    }
-
-    public void setY(Integer y) {
-        this.y = y;
-    }
-
-    public Integer getDanio() {
-        return danio;
-    }
-
-    public void setDanio(Integer danio) {
-        this.danio = danio;
-    }
-
-    public Integer getArmadura() {
-        return armadura;
-    }
-
-    public void setArmadura(Integer armadura) {
-        this.armadura = armadura;
-    }
+    // GETTERS Y SETTERS (necesarios por el encapsulamiento)
+    public String getNombre() { return nombre; }
+    public int getVidaMaxima() { return vidaMaxima; }
+    public int getVidaActual() { return vidaActual; }
+    public int getDanio() { return danio; }
+    public int getArmadura() { return armadura; }
+    public int getX() { return x; }
+    public int getY() { return y; }
+    public void setX(int x) { this.x = x; }
+    public void setY(int y) { this.y = y; }
+    public ArrayList<Item> getItems() { return items; }
+    
 }
 
 
