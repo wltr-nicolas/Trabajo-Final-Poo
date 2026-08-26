@@ -6,13 +6,23 @@
 
 public class Hero extends Personaje {
 
-    
-    //private ArrayList<Item> items;
+    private Arma armaEquipada; // por ahora no es un item es por defecto por lo que usare una clase -Arma-
+    //el Hero usa por defecto una Arma tipo espada (por ahora fija)
+      
+    //private int experiencia; // se define su uso más adelante
 
-    public Hero(String nombre, int vidaMaxima, int tamanio, int x, int y, int danio, int armadura) {
+
+    public Hero(String nombre, int vidaMaxima, int tamanio, int x, int y, int danio, int armadura) { //constructor del hero
 
         super(nombre, vidaMaxima, tamanio, x, y, danio, armadura);
+        
+        // se crea el objeto Arma en memoria
+        this.armaEquipada = new Arma("espada", 6); // esta es la forma de crear algo y instanciarlo para algo
+
     }
+
+        public Arma getArmaEquipada() { return armaEquipada; }
+
 
     //  MÉTODOS ABSTRACTOS OBLIGATORIOS O NO FUNCIONA
 
@@ -27,6 +37,8 @@ public class Hero extends Personaje {
         // Aquí irá la lógica para usar una poción o correr
         System.out.println(getNombre() + " realiza una acción adicional.");
     }
+
+
 
 }
 
