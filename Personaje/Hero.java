@@ -27,9 +27,15 @@ public class Hero extends Personaje {
     //  MÉTODOS ABSTRACTOS OBLIGATORIOS O NO FUNCIONA
 
     @Override
-    public void realizarAccionPrincipal() {
+    public void realizarAccionAtacar() {
         // Aquí irá la lógica cuando el jugador elige atacar, hablar o huir desde la IGU
         System.out.println(getNombre() + " realiza su acción principal.");
+    }
+
+    @Override
+    public void realizarAccionDefender() {
+        // Aquí irá la lógica cuando el jugador elige atacar, hablar o huir desde la IGU
+        System.out.println(getArmadura() + " realiza su acción principal.");
     }
 
     @Override

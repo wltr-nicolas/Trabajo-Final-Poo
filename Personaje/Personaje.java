@@ -32,14 +32,9 @@ Solución: Aplicar encapsulamiento estricto definiendo los atributos como privat
         this.items = new ArrayList<>();
 
     }
-
+    
     public void recibirDano(int cantidad) {
-        int danoReal = cantidad - this.armadura;
-        if (danoReal < 0) {
-            danoReal = 0;
-        }
-
-        this.vidaActual -= danoReal;
+        this.vidaActual -= cantidad;
         if (this.vidaActual < 0) {
             this.vidaActual = 0;
         }
@@ -54,7 +49,8 @@ Solución: Aplicar encapsulamiento estricto definiendo los atributos como privat
     }
 
 // MÉTODOS ABSTRACTOS:  para Hero y Enemigo
-    public abstract void realizarAccionPrincipal();
+    public abstract void realizarAccionAtacar();
+    public abstract void realizarAccionDefender();
     public abstract void ejecutarAccionAdicional();
 
     // GETTERS Y SETTERS (necesarios por el encapsulamiento)
