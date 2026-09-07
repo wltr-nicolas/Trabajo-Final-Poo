@@ -8,7 +8,7 @@ public class Hero extends Personaje {
 
     private Arma armaEquipada; // por ahora no es un item es por defecto por lo que usare una clase -Arma-
     //el Hero usa por defecto una Arma tipo espada (por ahora fija)
-      
+    
     //private int experiencia; // se define su uso más adelante
 
 
@@ -17,11 +17,15 @@ public class Hero extends Personaje {
         super(nombre, vidaMaxima, tamanio, x, y, danio, armadura);
         
         // se crea el objeto Arma en memoria
-        this.armaEquipada = new Arma("espada", 6); // esta es la forma de crear algo y instanciarlo para algo
+        this.armaEquipada = new Arma("espada basica", "espada de hierro comun", 0, 6); // esta es la forma de crear algo y instanciarlo para algo
 
     }
 
         public Arma getArmaEquipada() { return armaEquipada; }
+
+        public void equiparArma(Arma nuevaArma) {
+    this.armaEquipada = nuevaArma;
+}
 
 
     //  MÉTODOS ABSTRACTOS OBLIGATORIOS O NO FUNCIONA

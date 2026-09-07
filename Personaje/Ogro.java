@@ -3,7 +3,7 @@ public class Ogro extends Enemigo {
     public Ogro(String nombre, int vidaMaxima, int tamanio, int x, int y, int danio, int armadura){
         super(nombre, vidaMaxima, tamanio, x, y, danio, armadura);
 
-        this.drop = new Item ("cabeza de Ogro");
+        this.drop = new Item ("cabeza de Ogro", "Trofeo obtenido al derrotar un Ogro", 100);
         
 
     }
@@ -14,7 +14,7 @@ public class Ogro extends Enemigo {
     public Item generarDrop() {
         // Aquí irá la lógica cuando el enemigo deja caer un drop (item)
         System.out.println(getDrop() + " deja caer un item(drop)");
-        return getDrop();
+        return (Item) getDrop();
     }
     
 

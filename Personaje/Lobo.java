@@ -3,7 +3,7 @@ public class Lobo extends Enemigo {
     public Lobo(String nombre, int vidaMaxima, int tamanio, int x, int y, int danio, int armadura){
         super(nombre, vidaMaxima, tamanio, x, y, danio, armadura);
 
-        this.drop = new Item ("Cabeza de Lobo");
+        this.drop = new Item ("Cabeza de Lobo", "Trofeo obtenido al derrotar un Lobo", 50);
         
 
     }
@@ -14,7 +14,7 @@ public class Lobo extends Enemigo {
     public Item generarDrop() {
         // Aquí irá la lógica cuando el enemigo deja caer un drop (item)
         System.out.println(getDrop() + " deja caer un item(drop)");
-        return getDrop();
+        return (Item) getDrop();
     }
     
 

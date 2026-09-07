@@ -1,5 +1,7 @@
 import  java.util.ArrayList;
 
+
+
 public abstract class Personaje {
     
     /*Nivel de visibilidad (protected vs. private)
@@ -33,7 +35,7 @@ Solución: Aplicar encapsulamiento estricto definiendo los atributos como privat
 
     }
     
-    public void recibirDano(int cantidad) {
+    public void recibirDanio(int cantidad) {
         this.vidaActual -= cantidad;
         if (this.vidaActual < 0) {
             this.vidaActual = 0;

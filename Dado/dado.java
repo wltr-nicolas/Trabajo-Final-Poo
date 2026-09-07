@@ -1,10 +1,10 @@
 import java.util.Random;
+
 public class Dado {
-    protected int caras;
-    protected int valor;
+    private int caras;
+    private int valor;
 
     Random random = new Random();
-   // int numero = random.nextInt(caras); 
 
     public Dado(int caras) {
         this.caras = caras;
