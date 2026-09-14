@@ -1,4 +1,5 @@
 import java.util.Random;
+import Modelo.Dado.Dado;
 
 public class Dado {
     private int caras;
