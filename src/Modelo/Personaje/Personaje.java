@@ -1,3 +1,4 @@
+package Modelo.Personaje;
 import  java.util.ArrayList;
 
 

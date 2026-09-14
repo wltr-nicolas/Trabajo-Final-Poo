@@ -1,3 +1,5 @@
+package Modelo.Personaje;
+
 public class Arma extends Item {
 
     private int caraDadoDanio; // el daño que hace el arma, que se determina con un dado de x caras;

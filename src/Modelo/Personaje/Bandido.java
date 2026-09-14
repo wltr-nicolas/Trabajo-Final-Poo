@@ -1,3 +1,5 @@
+package Modelo.Personaje;
+
 public class Bandido extends Enemigo {
 
     public Bandido(String nombre, int vidaMaxima, int tamanio, int x, int y, int danio, int armadura){

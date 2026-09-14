@@ -1,3 +1,5 @@
+package Modelo.Personaje;
+
 public abstract class Enemigo extends Personaje {
 
     private Item drop; // el ítem que este enemigo suelta al morir
