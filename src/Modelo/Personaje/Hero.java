@@ -1,5 +1,7 @@
 package Modelo.Personaje;
 
+import Modelo.item.Arma;
+
 //import java.util.ArrayList;
 
 

@@ -3,7 +3,7 @@ package Modelo.Escenario;
 import java.util.ArrayList;
 import Modelo.Personaje.Enemigo;
 import Modelo.Personaje.Hero;
-import Modelo.Personaje.Item;
+import Modelo.item.Item;
 
 public abstract class Escenario {
 

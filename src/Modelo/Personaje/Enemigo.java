@@ -1,5 +1,7 @@
 package Modelo.Personaje;
 
+import Modelo.item.Item;
+
 public abstract class Enemigo extends Personaje {
 
     private Item drop; // el ítem que este enemigo suelta al morir

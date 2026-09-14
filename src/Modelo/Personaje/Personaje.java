@@ -1,6 +1,8 @@
 package Modelo.Personaje;
 import  java.util.ArrayList;
 
+import Modelo.item.Item;
+
 
 
 public abstract class Personaje {

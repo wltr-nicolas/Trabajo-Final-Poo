@@ -1,4 +1,4 @@
-package Modelo.Personaje;
+package Modelo.item;
 
 public class Arma extends Item {
 

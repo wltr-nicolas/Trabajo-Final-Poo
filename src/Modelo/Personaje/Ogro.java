@@ -1,5 +1,7 @@
 package Modelo.Personaje;
 
+import Modelo.item.Item;
+
 public class Ogro extends Enemigo {
 
     public Ogro(String nombre, int vidaMaxima, int tamanio, int x, int y, int danio, int armadura){

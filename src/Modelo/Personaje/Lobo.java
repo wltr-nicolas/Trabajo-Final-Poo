@@ -1,5 +1,7 @@
 package Modelo.Personaje;
 
+import Modelo.item.Item;
+
 public class Lobo extends Enemigo {
 
     public Lobo(String nombre, int vidaMaxima, int tamanio, int x, int y, int danio, int armadura){
