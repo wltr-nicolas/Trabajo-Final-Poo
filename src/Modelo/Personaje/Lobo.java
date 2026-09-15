@@ -3,19 +3,9 @@ import Modelo.Item;
 
 public class Lobo extends Enemigo {
 
-    private Item drop;
-
     public Lobo(String nombre, int vidaMaxima, int tamanio, int x, int y, int danio, int armadura){
         super(nombre, vidaMaxima, tamanio, x, y, danio, armadura);
-        setDrop(new Item("Cabeza de Lobo", "Trofeo obtenido al derrotar un Lobo", 50));
-    }
-
-    public Item getDrop() {
-        return drop;
-    }
-
-    public void setDrop(Item drop) {
-        this.drop = drop;
+        this.drop = new Item("Cabeza de Lobo", "Trofeo obtenido al derrotar un Lobo", 50);
     }
 
     //  MÉTODOS ABSTRACTOS OBLIGATORIOS O NO FUNCIONA
