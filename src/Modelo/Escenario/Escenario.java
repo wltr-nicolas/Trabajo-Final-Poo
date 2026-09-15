@@ -1,9 +1,9 @@
 package Modelo.Escenario;
 
 import java.util.ArrayList;
+import Modelo.Item;
 import Modelo.Personaje.Enemigo;
 import Modelo.Personaje.Hero;
-import Modelo.item.Item;
 
 public abstract class Escenario {
 

@@ -1,4 +1,4 @@
-package Modelo.Personaje;
+
 
 
    public class App {

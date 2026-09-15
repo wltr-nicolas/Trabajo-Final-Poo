@@ -1,7 +1,6 @@
-package Modelo.item;
+package Modelo;
 
-public class Item {
-
+public class Item {    
     private String nombre;
     private String descripcion;
     private int precio;
@@ -16,7 +15,7 @@ public class Item {
     // GETTERS Y SETTERS (necesarios por el encapsulamiento)
     public String getNombre() { return nombre; }
     public String getDescripcion() { return descripcion; }
-    public int getPrecio () { return precio; }
+    public int getPrecio() { return precio; }
     
     @Override
     public String toString() {

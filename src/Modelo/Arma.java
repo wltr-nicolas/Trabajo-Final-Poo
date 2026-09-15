@@ -1,4 +1,4 @@
-package Modelo.item;
+package Modelo;
 
 public class Arma extends Item {
 

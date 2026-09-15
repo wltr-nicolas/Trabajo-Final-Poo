@@ -1,26 +1,31 @@
 package Modelo.Personaje;
-
-import Modelo.item.Item;
+import Modelo.Item;
 
 public class Lobo extends Enemigo {
 
+    private Item drop;
+
     public Lobo(String nombre, int vidaMaxima, int tamanio, int x, int y, int danio, int armadura){
         super(nombre, vidaMaxima, tamanio, x, y, danio, armadura);
-
-        this.drop = new Item ("Cabeza de Lobo", "Trofeo obtenido al derrotar un Lobo", 50);
-        
-
+        setDrop(new Item("Cabeza de Lobo", "Trofeo obtenido al derrotar un Lobo", 50));
     }
 
-        //  MÉTODOS ABSTRACTOS OBLIGATORIOS O NO FUNCIONA
+    public Item getDrop() {
+        return drop;
+    }
+
+    public void setDrop(Item drop) {
+        this.drop = drop;
+    }
+
+    //  MÉTODOS ABSTRACTOS OBLIGATORIOS O NO FUNCIONA
 
     @Override
     public Item generarDrop() {
         // Aquí irá la lógica cuando el enemigo deja caer un drop (item)
         System.out.println(getDrop() + " deja caer un item(drop)");
-        return (Item) getDrop();
+        return getDrop();
     }
-    
 
     @Override
     public void realizarAccionAtacar() {
@@ -39,8 +44,19 @@ public class Lobo extends Enemigo {
         // Aquí irá la lógica para usar una poción o correr
         System.out.println(getNombre() + " realiza una acción adicional.");
     }
-
-
-
-    
 }
+
+    /*  Esta clase es una subclase concreta (Lobo.java) que representa a uno de los oponentes 
+    del juego dentro de la capa de Modelo. Hereda de Enemigo (que a su vez hereda de Personaje), 
+    completando la jerarquía de herencia.
+    
+¿Qué hace exactamente?¿Qué hace exactamente?
+    _Define la entidad del Lobo: Inicializa sus atributos básicos pasándoselos a la clase 
+    padre mediante super(...) y le asigna un objeto único como recompensa al ser derrotado 
+    ("cabeza de Lobo" valorada en 50 de oro).
+Cumple con los contratos abstractos (@Override): Implementa obligatoriamente la lógica específica 
+para el Lobo de los métodos heredados de Personaje y Enemigo:
+        - generarDrop(): Define qué item deja caer al ser derrotado.
+        - realizarAccionAtacar(): Define cómo actúa cuando ataca.
+        - realizarAccionDefender(): Define cómo actúa cuando se defiende.
+        - ejecutarAccionAdicional(): Define una acción extra, como usar un item o huir. */

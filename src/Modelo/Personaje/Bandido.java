@@ -1,13 +1,13 @@
 package Modelo.Personaje;
 
-import Modelo.item.Item;
+import Modelo.Item;
 
 public class Bandido extends Enemigo {
 
-    public Bandido(String nombre, int vidaMaxima, int tamanio, int x, int y, int danio, int armadura){
+    public Bandido(String nombre, int vidaMaxima, int tamanio, int x, int y, int danio, int armadura) {
         super(nombre, vidaMaxima, tamanio, x, y, danio, armadura);
 
-        this.drop = new Item ("Oro", "Monedas de oro obtenidas al derrotar un Bandido", 20);
+        this.drop = new Item("Oro", "Monedas de oro obtenidas al derrotar un Bandido", 20);
         
 
     }
@@ -40,3 +40,18 @@ public class Bandido extends Enemigo {
         System.out.println(getNombre() + " realiza una acción adicional.");
     }
 }
+
+    /*  Esta clase es una subclase concreta (Bandido.java) que representa a uno de los oponentes 
+    del juego dentro de la capa de Modelo. Hereda de Enemigo (que a su vez hereda de Personaje), 
+    completando la jerarquía de herencia.
+    
+¿Qué hace exactamente?¿Qué hace exactamente?
+    _Define la entidad del Bandido: Inicializa sus atributos básicos pasándoselos a la clase 
+    padre mediante super(...) y le asigna un objeto único como recompensa al ser derrotado 
+    ("cabeza de Bandido" valorada en 20 de oro).
+Cumple con los contratos abstractos (@Override): Implementa obligatoriamente la lógica específica 
+para el Ogro de los métodos heredados de Personaje y Enemigo:
+        - generarDrop(): Define qué item deja caer al ser derrotado.
+        - realizarAccionAtacar(): Define cómo actúa cuando ataca.
+        - realizarAccionDefender(): Define cómo actúa cuando se defiende.
+        - ejecutarAccionAdicional(): Define una acción extra, como usar un item o huir. */

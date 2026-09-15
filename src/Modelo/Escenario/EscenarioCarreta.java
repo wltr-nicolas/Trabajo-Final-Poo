@@ -1,4 +1,5 @@
 package Modelo.Escenario;
+import Modelo.Personaje.Hero;
 
 public class EscenarioCarreta extends Escenario {
 
@@ -13,9 +14,9 @@ public class EscenarioCarreta extends Escenario {
         System.out.println("Los ladrones han rodeado tu vehículo. ¡Prepárate para defender tus recursos!");
     }
 
-    /*@Override // le agregamos efectos ambientales?????
+    @Override // le agregamos efectos ambientales?????
     public void aplicarEfectoAmbiente(Hero jugador) {
         // Terreno despejado: no aplica efectos negativos
         System.out.println("El terreno despejado permite un combate directo.");
-    } */ 
+    } 
 }

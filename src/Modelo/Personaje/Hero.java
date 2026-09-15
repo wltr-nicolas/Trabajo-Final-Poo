@@ -1,10 +1,5 @@
 package Modelo.Personaje;
-
-import Modelo.item.Arma;
-
-//import java.util.ArrayList;
-
-
+import Modelo.Arma;
 
 
 public class Hero extends Personaje {
@@ -50,21 +45,22 @@ public class Hero extends Personaje {
         // Aquí irá la lógica para usar una poción o correr
         System.out.println(getNombre() + " realiza una acción adicional.");
     }
-
-
-
 }
 
-
-
-
-
-
-
-
-
-
-
-    
-
-
+/* Esta clase es la implementación concreta del héroe o jugador principal (Hero.java) dentro de la 
+capa de Modelo. Hereda directamente de la clase abstracta Personaje.
+¿Qué hace exactamente?
+    _Representa al personaje controlado por el jugador: Define las capacidades específicas del 
+    héroe, como equipar armas y reaccionar a los comandos de combate o navegación.
+Maneja el equipamiento (Arma):
+    _Define un atributo privado armaEquipada para saber qué arma tiene en uso.
+    _En el constructor, cuando creás al héroe, le asigna automáticamente una "espada basica" 
+    por defecto.
+    _Proporciona los métodos getArmaEquipada() para consultar el arma actual y 
+    equiparArma(Arma nuevaArma) para cambiarla más adelante en el juego 
+    (por ejemplo, al comprar una nueva en la tienda).
+Cumple con los contratos abstractos de Personaje (@Override): 
+Escribe la lógica concreta para los tres métodos obligatorios que heredó de la clase base:
+        - realizarAccionAtacar(): Define cómo actúa el héroe cuando ataca.
+        - realizarAccionDefender(): Define cómo actúa el héroe cuando se defiende.
+        - ejecutarAccionAdicional(): Define una acción extra, como usar un item o huir. */
