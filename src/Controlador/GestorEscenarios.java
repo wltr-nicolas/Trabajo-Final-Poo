@@ -23,52 +23,33 @@ public class GestorEscenarios {
 public void posicionInicial() {
     this.jugador.setX(escenarioActual.getSpawnX());
     this.jugador.setY(escenarioActual.getSpawnY());
+   }
+
+      public void moverJugador(int nuevoX, int nuevoY) {
+    this.jugador.setX(nuevoX);
+    this.jugador.setY(nuevoY);
+
+    if (evaluadorEncuentro.hayEncuentro(nuevoX, nuevoY)) {
+        // Aquí se puede agregar la lógica para manejar el encuentro
+        //this.combate()
+    }else {
+        verificarTransicionDeMapas(nuevoX, nuevoY);
+        }
+
+    }
+
+private void verificarTransicionDeMapas(int x, int y) {
+    for (TransicionMapa transicion : escenarioActual.getTransiciones()) {
+        if (transicion.estaEnZonaTransicion(x, y)) {
+            cambiarEscenario(
+                EscenarioFactory.crearEscenario(transicion.getEscenarioDestino()),
+                transicion.getSpawnX(),
+                transicion.getSpawnY()
+            );
+            break; // ya encontramos la transición correcta, no hace falta seguir revisando las demás
+        }
+    }
 }
-
-}
-
-
-
-
-   // private boolean tutorialCompletado;
-
-/* 
-    public GestorEscenarios(Hero jugador, EvaluadorEncuentro evaluadorEncuentro) {
-        this.jugador = jugador;
-        this.evaluadorEncuentro = evaluadorEncuentro;
-        this.tutorialCompletado = false;
-
-        this.escenarioActual = EscenarioFactory.crearEscenario(TipoEscenario.CARRETA);
-        this.escenarioActual.iniciarEscenario(this.jugador);
-    }
-
-    public void moverJugador(int nuevoX, int nuevoY) {
-        jugador.setX(nuevoX);
-        jugador.setY(nuevoY);
-
-        if (tutorialCompletado) {
-            verificarTransicionDeMapas(nuevoX, nuevoY);
-            if (evaluadorEncuentro.hayEncuentro(nuevoX, nuevoY)) {
-                // acá después conectamos con la Vista para avisar el encuentro
-            }
-        }
-    }
-
-    private void verificarTransicionDeMapas(int x, int y) {
-        if (x >= 95) {
-            cambiarEscenario(EscenarioFactory.crearEscenario(TipoEscenario.CALABOZO), 10, 50);
-        } else if (x <= 5) {
-            cambiarEscenario(EscenarioFactory.crearEscenario(TipoEscenario.PANTANO), 90, 50);
-        }
-    }
-
-    public void procesarFinTutorial() {
-        if (!tutorialCompletado && !jugador.estaVivo()) {
-            jugador.curar(jugador.getVidaMaxima()); // usa el curar() pendiente, en vez del truco de daño negativo
-            this.tutorialCompletado = true;
-            cambiarEscenario(EscenarioFactory.crearEscenario(TipoEscenario.BOSQUE), 50, 50);
-        }
-    }
 
     public void cambiarEscenario(Escenario nuevoEscenario, int spawnX, int spawnY) {
         this.escenarioActual = nuevoEscenario;
@@ -77,10 +58,5 @@ public void posicionInicial() {
         this.escenarioActual.iniciarEscenario(jugador);
         this.escenarioActual.aplicarEfectoAmbiente(jugador);
     }
-
-    public Escenario getEscenarioActual(){
-        if ()
-    }
-
-    public boolean isTutorialCompletado() { return tutorialCompletado; } */
+}
 

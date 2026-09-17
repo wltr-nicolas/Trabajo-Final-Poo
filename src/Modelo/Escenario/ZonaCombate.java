@@ -1,4 +1,4 @@
-package Modelo.Escenario; //walter
+package Modelo.Escenario; 
 import Modelo.Dado;
 
 /* Esta clase es la realización concreta del contrato que definimos 
@@ -6,29 +6,29 @@ import Modelo.Dado;
    Mientras que la interfaz solo prometía que existiría una forma de evaluar
    si hay un encuentro, EvaluadorPastoDado le enseña a Java el cómo exacto
    se calcula esa condición. */
-public class EvaluadorPastoDado implements EvaluadorEncuentro {
+public class ZonaCombate implements EvaluadorEncuentro {
     private Dado dado;
     private int umbral;
 
-    public EvaluadorPastoDado(Dado dado, int umbral) {
+    public ZonaCombate(Dado dado, int umbral) {
         this.dado = dado;
         this.umbral = umbral;
     }
 
     @Override   //es override???????
     public boolean hayEncuentro(int x, int y) {
-        if (esZonaPasto(x, y)) {
+        if (esZonaCombate(x, y)) {
             return dado.lanzar() >= umbral;
         }
         return false;
     }
 
-    private boolean esZonaPasto(int x, int y) {
+    private boolean esZonaCombate(int x, int y) {
         return (x >= 20 && x <= 40) && (y >= 20 && y <= 40);
     }
 }
 
-/* ¿Qué hace EvaluadorPastoDado paso a paso?Guarda la herramienta
+/* ¿Qué hace ZonaCombate paso a paso?Guarda la herramienta
    y la regla de probabilidad:Al crearse (en el constructor), recibe un objeto
    Dado y un valor entero llamado umbral (por ejemplo, 4).Ejecuta el método 
    @Override public boolean hayEncuentro(int x, int y):
