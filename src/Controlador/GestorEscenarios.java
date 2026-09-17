@@ -11,9 +11,28 @@ public class GestorEscenarios {
 
     private Escenario escenarioActual;
     private Hero jugador;
-    private boolean tutorialCompletado;
     private EvaluadorEncuentro evaluadorEncuentro;
 
+   public GestorEscenarios(Hero jugador, EvaluadorEncuentro evaluadorEncuentro) {
+    this.jugador = jugador;
+    this.evaluadorEncuentro = evaluadorEncuentro;
+    this.escenarioActual = EscenarioFactory.crearEscenario(TipoEscenario.CARRETA);
+    this.posicionInicial();
+   }
+
+public void posicionInicial() {
+    this.jugador.setX(escenarioActual.getSpawnX());
+    this.jugador.setY(escenarioActual.getSpawnY());
+}
+
+}
+
+
+
+
+   // private boolean tutorialCompletado;
+
+/* 
     public GestorEscenarios(Hero jugador, EvaluadorEncuentro evaluadorEncuentro) {
         this.jugador = jugador;
         this.evaluadorEncuentro = evaluadorEncuentro;
@@ -63,5 +82,5 @@ public class GestorEscenarios {
         if ()
     }
 
-    public boolean isTutorialCompletado() { return tutorialCompletado; }
-}
+    public boolean isTutorialCompletado() { return tutorialCompletado; } */
+

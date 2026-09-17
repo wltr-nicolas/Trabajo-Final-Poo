@@ -3,9 +3,8 @@ import Modelo.Personaje.Hero;
 
 public class EscenarioPantano extends Escenario {
 
-    public EscenarioPantano() {
-        super("Pantano Putrefacto", 
-              "Una ciénaga peligrosa llena de agua estancada y vapores tóxicos.");
+    public EscenarioPantano(String nombre, String descripcion, int spawnX, int spawnY) {
+        super(nombre, descripcion, spawnX, spawnY);
     }
 
     @Override

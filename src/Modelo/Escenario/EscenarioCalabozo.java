@@ -3,9 +3,8 @@ import Modelo.Personaje.Hero;
 
 public class EscenarioCalabozo extends Escenario {
 
-    public EscenarioCalabozo() {
-        super("Calabozo Subterráneo", 
-              "Una húmeda y oscura mazmorra plagada de trampa y antiguos guardianes.");
+    public EscenarioCalabozo(String nombre, String descripcion, int spawnX, int spawnY) {
+        super(nombre, descripcion, spawnX, spawnY);
     }
 
     @Override

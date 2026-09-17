@@ -14,15 +14,19 @@ public abstract class Escenario {
     private ArrayList<Enemigo> enemigosDisponibles;
     private ArrayList<Item> dropsDelEscenario;
     private ArrayList<TransicionMapa> transiciones;
+    private int spawnX;
+    private int spawnY;
 
 
     // Constructor de la clase madre
-    public Escenario(String nombre, String descripcion) {
+    public Escenario(String nombre, String descripcion, int spawnX, int spawnY) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.enemigosDisponibles = new ArrayList<>();
         this.dropsDelEscenario = new ArrayList<>();
         this.transiciones = new ArrayList<>();
+        this.spawnX = spawnX;
+        this.spawnY = spawnY;
     }
 
     // --- MÉTODOS CONCRETOS (Comunes a todos los biomas) ---
@@ -62,4 +66,6 @@ public abstract class Escenario {
     public ArrayList<Enemigo> getEnemigosDisponibles() { return enemigosDisponibles; }
     public ArrayList<Item> getDropsDelEscenario() { return dropsDelEscenario; }
     public ArrayList<TransicionMapa> getTransiciones() { return transiciones; }
+    public int getSpawnX() { return spawnX; }
+    public int getSpawnY() { return spawnY; }
 }

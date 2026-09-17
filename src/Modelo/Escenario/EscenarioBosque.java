@@ -3,9 +3,10 @@ import Modelo.Personaje.Hero;
 
 public class EscenarioBosque extends Escenario {
 
-    public EscenarioBosque() {
-        super("Bosque de las Sombras", 
-              "Un frondoso bosque habitado por animales salvajes y criaturas místicas.");
+
+
+    public EscenarioBosque(String nombre, String descripcion, int spawnX, int spawnY) {
+        super(nombre, descripcion, spawnX, spawnY);
     }
 
     @Override
