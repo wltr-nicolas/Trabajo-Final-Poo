@@ -1,12 +1,14 @@
 package Modelo.Personaje;
 import Modelo.Arma;
+import Modelo.Dado;
 
 
 public class Hero extends Personaje {
 
     private Arma armaEquipada; // por ahora no es un item es por defecto por lo que usare una clase -Arma-
     //el Hero usa por defecto una Arma tipo espada (por ahora fija)
-    
+    private static final int BONUS_ARMADURA_POCION = 5; //es constante porque solo hay una pocion de armadura
+    private static final int DURACION_ARMADURA = 3; //la duracion de la pocion de armadura
     //private int experiencia; // se define su uso más adelante
 
 
@@ -34,15 +36,25 @@ public class Hero extends Personaje {
         System.out.println(getNombre() + " realiza su acción principal.");
     }
 
-    @Override
+    public void usarPocionArmadura (){
+        aplicarBonusArmadura(BONUS_ARMADURA_POCION, DURACION_ARMADURA);
+        System.out.println(getNombre()+ " usa pocion de armadura (+" + BONUS_ARMADURA_POCION + "por" + DURACION_ARMADURA + " turnos).");
+    } //llamado por gestorBatalla cuando se usa pocion de armadura
+
+    public void usarPocionVida (Dado dadoVida){
+        int curacion = dadoVida.lanzar();
+        curar (curacion);
+        System.out.println(getNombre() + " usa pocion de vida y recupera " + curacion + " puntos.");
+    } //llamado por gestorBatalla cuando se usa pocion de vida
+
+    /*@Override
     public void realizarAccionDefender() {
         // Aquí irá la lógica cuando el jugador elige atacar, hablar o huir desde la IGU
         System.out.println(getArmadura() + " realiza su acción principal.");
     }
+        Se saca porque no hay dado para verificar si conecta el golpe*/
 
-    @Override
     public void ejecutarAccionAdicional() {
-        // Aquí irá la lógica para usar una poción o correr
         System.out.println(getNombre() + " realiza una acción adicional.");
     }
 }
