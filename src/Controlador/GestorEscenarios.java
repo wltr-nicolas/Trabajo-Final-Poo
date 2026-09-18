@@ -12,6 +12,7 @@ public class GestorEscenarios {
     private Escenario escenarioActual;
     private Hero jugador;
     private EvaluadorEncuentro evaluadorEncuentro;
+    private boolean tutorialCompletado = false;
 
    public GestorEscenarios(Hero jugador, EvaluadorEncuentro evaluadorEncuentro) {
     this.jugador = jugador;
@@ -20,25 +21,50 @@ public class GestorEscenarios {
     this.posicionInicial();
    }
 
+public boolean procesarFinTutorial() {
+    if (!tutorialCompletado && !jugador.estaVivo()) {
+        jugador.curar(jugador.getVidaMaxima());
+        this.tutorialCompletado = true;
+        cambiarEscenario(EscenarioFactory.crearEscenario(TipoEscenario.BOSQUE), 50, 50);
+        return true; // Informa que el tutorial finalizó en este llamado
+    }
+    return false; // Informa que el tutorial no ha acabado
+}
+    
+
 public void posicionInicial() {
     this.jugador.setX(escenarioActual.getSpawnX());
     this.jugador.setY(escenarioActual.getSpawnY());
    }
 
-      public void moverJugador(int nuevoX, int nuevoY) {
+public boolean moverJugador(int nuevoX, int nuevoY) {
+    boolean huboRescate = procesarFinTutorial(); //  llamada, resultado guardado
+    if (huboRescate) {
+        return true; // cortamos ACÁ, antes de tocar la posición con nuevoX/nuevoY
+    }
+
     this.jugador.setX(nuevoX);
     this.jugador.setY(nuevoY);
 
     if (evaluadorEncuentro.hayEncuentro(nuevoX, nuevoY)) {
-        // Aquí se puede agregar la lógica para manejar el encuentro
-        //this.combate()
-    }else {
+        return true; // Se encontró un encuentro, se detiene el movimiento y se inicia el combate
+        // acá se conecta el combate más adelante
+    } else {
+         // No hay encuentro, el jugador puede seguir moviéndose
         verificarTransicionDeMapas(nuevoX, nuevoY);
-        }
-
+        return false; // No hubo encuentro, el jugador puede seguir moviéndose  
     }
+}
 
-private void verificarTransicionDeMapas(int x, int y) {
+public enum ResultadoMovimiento {
+    ENCUENTRO, 
+    RESCATE_TUTORIAL, 
+    TRANSICION_ESCENARIO,
+    SIN_EVENTO
+}
+
+
+private boolean verificarTransicionDeMapas(int x, int y) {
     for (TransicionMapa transicion : escenarioActual.getTransiciones()) {
         if (transicion.estaEnZonaTransicion(x, y)) {
             cambiarEscenario(
@@ -46,9 +72,10 @@ private void verificarTransicionDeMapas(int x, int y) {
                 transicion.getSpawnX(),
                 transicion.getSpawnY()
             );
-            break; // ya encontramos la transición correcta, no hace falta seguir revisando las demás
+            return true; // La transición fue realizada
         }
     }
+    return false; // No hubo transición de mapa
 }
 
     public void cambiarEscenario(Escenario nuevoEscenario, int spawnX, int spawnY) {
@@ -58,5 +85,9 @@ private void verificarTransicionDeMapas(int x, int y) {
         this.escenarioActual.iniciarEscenario(jugador);
         this.escenarioActual.aplicarEfectoAmbiente(jugador);
     }
+
+
+public Escenario getEscenarioActual() { return escenarioActual; }
 }
+
 

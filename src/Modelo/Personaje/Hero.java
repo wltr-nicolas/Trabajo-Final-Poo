@@ -24,8 +24,8 @@ public class Hero extends Personaje {
         public Arma getArmaEquipada() { return armaEquipada; }
 
         public void equiparArma(Arma nuevaArma) {
-    this.armaEquipada = nuevaArma;
-}
+        this.armaEquipada = nuevaArma;
+    }
 
 
     //  MÉTODOS ABSTRACTOS OBLIGATORIOS O NO FUNCIONA
