@@ -1,7 +1,7 @@
 public class accionatacar implements Accion {
     public void ejecutar() {
 
-        CalcularDano calcularDano = new CalcularDano();
+        CalcularDanio calcularDano = new CalcularDanio();
         calcularDano.calcular();
     }
 }
