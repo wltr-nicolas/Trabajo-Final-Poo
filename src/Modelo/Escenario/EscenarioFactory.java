@@ -8,13 +8,13 @@ public class EscenarioFactory {
     public static Escenario crearEscenario(TipoEscenario tipo) {
         switch (tipo) {
             case CARRETA:
-                return new EscenarioCarreta();
+                return new EscenarioCarreta("Camino Real - Asalto a la Carreta", "Un camino empedrado, se rompe tu carreta tratas de repararla y en ese momento fuiste emboscado por una banda de ladrones.", 50, 50);
             case BOSQUE:
-                return new EscenarioBosque();
+                return new EscenarioBosque("Bosque de las Sombras", "Un frondoso bosque habitado por animales salvajes y criaturas místicas.", 50, 0);
             case CALABOZO:
-                return new EscenarioCalabozo();
+                return new EscenarioCalabozo("Calabozo Subterráneo", "Una húmeda y oscura mazmorra plagada de trampa y antiguos guardianes.", 50, 0);
             case PANTANO:
-                return new EscenarioPantano();
+                return new EscenarioPantano("Pantano de los Lamentos", "Un pantano denso y tóxico, habitado por criaturas peligrosas y serpenteante.", 50, 0 );
             default:
                 throw new IllegalArgumentException("Tipo de escenario no válido: " + tipo);
         }

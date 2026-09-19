@@ -29,7 +29,7 @@ public class Ogro extends Enemigo {
         System.out.println(getDanio() + " realiza su acción atacar.");
     }
 
-    @Override
+    /*@Override
     public void realizarAccionDefender() {
         // Aquí irá la lógica cuando el jugador elige atacar, hablar o huir desde la IGU
         System.out.println(getArmadura() + " realiza su acción armadura.");
@@ -39,7 +39,7 @@ public class Ogro extends Enemigo {
     public void ejecutarAccionAdicional() {
         // Aquí irá la lógica para usar una poción o correr
         System.out.println(getNombre() + " realiza una acción adicional.");
-    }
+    }*/
 }
 
     /*  Esta clase es una subclase concreta (Ogro.java) que representa a uno de los oponentes 

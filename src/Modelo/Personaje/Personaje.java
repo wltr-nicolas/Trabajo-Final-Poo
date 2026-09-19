@@ -17,6 +17,8 @@ Solución: Aplicar encapsulamiento estricto definiendo los atributos como privat
     private int x;
     private int y;
     private int danio;
+    private int armaduraTemporal = 0;
+    private int turnosArmadura = 0;
     private int armadura;
     private ArrayList <Item> items;
 
@@ -35,12 +37,22 @@ Solución: Aplicar encapsulamiento estricto definiendo los atributos como privat
 
     }
     
-    public void recibirDanio(int cantidad) {
+    /*public void recibirDanio(int cantidad) {
         this.vidaActual -= cantidad;
         if (this.vidaActual < 0) {
             this.vidaActual = 0;
         }
-    }
+    } se reemplaza con el metodo de abajo*/
+     public void recibirDanio (int cantidad) {
+        int danioReal = cantidad - getArmaduraTotal(); //se agrega la armadura al calculo del danio
+        if (danioReal < 0 ){
+            danioReal = 0; //se evita que la armadura cure de rebote
+        }
+        this.vidaActual -= danioReal;
+        if (this.vidaActual < 0){
+            this.vidaActual = 0;
+        }
+     }//con este metodo podemos calcular el danio teniendo en cuenta la armadura
 
     public boolean estaVivo() {
         return this.vidaActual > 0;
@@ -52,8 +64,34 @@ Solución: Aplicar encapsulamiento estricto definiendo los atributos como privat
 
 // MÉTODOS ABSTRACTOS:  para Hero y Enemigo
     public abstract void realizarAccionAtacar();
-    public abstract void realizarAccionDefender();
-    public abstract void ejecutarAccionAdicional();
+    //public abstract void realizarAccionDefender(); se saca porque no hay dado de defensa
+    //public abstract void ejecutarAccionAdicional(); pasa a ser solo de hero, no de todos
+    public void curar (int cantidad) {
+        this.vidaActual += cantidad;
+        if (this.vidaActual > this.vidaMaxima){
+            this.vidaActual = this.vidaMaxima; //no se supera la vida maxima al curarse
+        }
+    }
+
+    public void aplicarBonusArmadura (int cantidad, int turnos){ 
+        this.armaduraTemporal= cantidad;
+        this.turnosArmadura= turnos;
+    } //se activa al usarse pocion de armdaura
+
+    public int getArmaduraTotal (){
+        return this.armadura + this.armaduraTemporal;
+    } //armadura base + el buff de la pocion
+
+    public void actualizarEfectosTemporales (){
+        if (turnosArmadura > 0){
+            turnosArmadura--;
+            if (turnosArmadura == 0){
+                armaduraTemporal = 0;
+            }
+        }
+    }//el gestorBatalla lo usa una vez por turno, para todos
+
+
 
     // GETTERS Y SETTERS (necesarios por el encapsulamiento)
     public String getNombre() { return nombre; }

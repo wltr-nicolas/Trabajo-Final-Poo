@@ -28,17 +28,19 @@ public class Bandido extends Enemigo {
         System.out.println(getDanio() + " realiza su acción atacar.");
     }
 
-    @Override
+    /*@Override
     public void realizarAccionDefender() {
         // Aquí irá la lógica cuando el jugador elige atacar, hablar o huir desde la IGU
         System.out.println(getArmadura() + " realiza su acción armadura.");
     }
+        se saca porque todos los golpes conectan siempre */
 
-    @Override   //utilisa un item o corre
+    /*@Override   //utilisa un item o corre
     public void ejecutarAccionAdicional() {
         // Aquí irá la lógica para usar una poción o correr
         System.out.println(getNombre() + " realiza una acción adicional.");
     }
+        se saca porque los enemigos no tienen acciones adicionales*/
 }
 
     /*  Esta clase es una subclase concreta (Bandido.java) que representa a uno de los oponentes 

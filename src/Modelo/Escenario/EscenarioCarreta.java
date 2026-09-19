@@ -3,9 +3,8 @@ import Modelo.Personaje.Hero;
 
 public class EscenarioCarreta extends Escenario {
 
-    public EscenarioCarreta() {
-        super("Camino Real - Asalto a la Carreta", 
-              "Un camino empedrado, se rompe tu carreta tratas de repararla y en ese momento fuiste emboscado por una banda de ladrones.");
+    public EscenarioCarreta(String nombre, String descripcion, int spawnX, int spawnY) {
+        super(nombre, descripcion, spawnX, spawnY);
     }
 
     @Override

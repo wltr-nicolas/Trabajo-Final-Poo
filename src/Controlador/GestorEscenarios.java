@@ -5,116 +5,89 @@ import Modelo.Escenario.TipoEscenario;
 import Modelo.Escenario.Escenario;
 import Modelo.Personaje.Hero;
 import Modelo.Escenario.EscenarioFactory;
+import Modelo.Escenario.TransicionMapa;
 
 public class GestorEscenarios {
 
     private Escenario escenarioActual;
     private Hero jugador;
-    private boolean tutorialCompletado;
     private EvaluadorEncuentro evaluadorEncuentro;
+    private boolean tutorialCompletado = false;
 
-    // Inyección de dependencias a través del constructor
-    public GestorEscenarios(Hero jugador, EvaluadorEncuentro evaluadorEncuentro) {
-        this.jugador = jugador;
-        this.evaluadorEncuentro = evaluadorEncuentro;
-        this.tutorialCompletado = false;
+   public GestorEscenarios(Hero jugador, EvaluadorEncuentro evaluadorEncuentro) {
+    this.jugador = jugador;
+    this.evaluadorEncuentro = evaluadorEncuentro;
+    this.escenarioActual = EscenarioFactory.crearEscenario(TipoEscenario.CARRETA);
+    this.posicionInicial();
+   }
 
-        // Inicia con la fábrica respetando SOLID: OCP (Open/Closed Principle (Principio de Abierto/Cerrado))
-        //  y DIP (Dependency Inversion Principle (Principio de Inversión de Dependencias))
-        this.escenarioActual = EscenarioFactory.crearEscenario(TipoEscenario.CARRETA);
-        this.escenarioActual.iniciarEscenario(this.jugador);
+public boolean procesarFinTutorial() {
+    if (!tutorialCompletado && !jugador.estaVivo()) {
+        jugador.curar(jugador.getVidaMaxima());
+        this.tutorialCompletado = true;
+        cambiarEscenario(EscenarioFactory.crearEscenario(TipoEscenario.BOSQUE), 50, 50);
+        return true; // Informa que el tutorial finalizó en este llamado
+    }
+    return false; // Informa que el tutorial no ha acabado
+}
+    
+
+public void posicionInicial() {
+    this.jugador.setX(escenarioActual.getSpawnX());
+    this.jugador.setY(escenarioActual.getSpawnY());
+   }
+
+public boolean moverJugador(int nuevoX, int nuevoY) {
+    boolean huboRescate = procesarFinTutorial(); //  llamada, resultado guardado
+    if (huboRescate) {
+        return true; // cortamos ACÁ, antes de tocar la posición con nuevoX/nuevoY
     }
 
-    /**
-     * Mueve al jugador a una nueva posición dentro del mapa y evalúa eventos.
-     */
-    public void moverJugador(int nuevoX, int nuevoY) {
-        jugador.setX(nuevoX);
-        jugador.setY(nuevoY);
+    this.jugador.setX(nuevoX);
+    this.jugador.setY(nuevoY);
 
-        if (tutorialCompletado) {
-            verificarTransicionDeMapas(nuevoX, nuevoY);
-            if (evaluadorEncuentro.hayEncuentro(nuevoX, nuevoY)) {
-                System.out.println("¡Un enemigo apareció entre la hierba alta!");
-            }
+    if (evaluadorEncuentro.hayEncuentro(nuevoX, nuevoY)) {
+        return true; // Se encontró un encuentro, se detiene el movimiento y se inicia el combate
+        // acá se conecta el combate más adelante
+    } else {
+         // No hay encuentro, el jugador puede seguir moviéndose
+        verificarTransicionDeMapas(nuevoX, nuevoY);
+        return false; // No hubo encuentro, el jugador puede seguir moviéndose  
+    }
+}
+
+public enum ResultadoMovimiento {
+    ENCUENTRO, 
+    RESCATE_TUTORIAL, 
+    TRANSICION_ESCENARIO,
+    SIN_EVENTO
+}
+
+
+private boolean verificarTransicionDeMapas(int x, int y) {
+    for (TransicionMapa transicion : escenarioActual.getTransiciones()) {
+        if (transicion.estaEnZonaTransicion(x, y)) {
+            cambiarEscenario(
+                EscenarioFactory.crearEscenario(transicion.getEscenarioDestino()),
+                transicion.getSpawnX(),
+                transicion.getSpawnY()
+            );
+            return true; // La transición fue realizada
         }
     }
+    return false; // No hubo transición de mapa
+}
 
-    /**
-     * Controla las fronteras para cambiar de bioma
-     */
-    private void verificarTransicionDeMapas(int x, int y) {
-        if (x >= 95) {
-            System.out.println("Entrando a la cueva...");
-            cambiarEscenario(EscenarioFactory.crearEscenario(TipoEscenario.CALABOZO), 10, 50);
-        } else if (x <= 5) {
-            System.out.println("Entrando al pantano...");
-            cambiarEscenario(EscenarioFactory.crearEscenario(TipoEscenario.PANTANO), 90, 50);
-        }
-    }
-
-    /**
-     * Evalúa si la batalla del tutorial terminó en derrota del héroe
-     */
-    public void procesarFinTutorial() {
-        if (!tutorialCompletado && !jugador.estaVivo()) {
-            System.out.println("\n==================================================");
-            System.out.println("¡Aparece el Tabernero (Aventurero Rango SSS)!");
-            System.out.println("Los bandidos huyen aterrados.");
-            System.out.println("Tabernero: 'Te rescaté a tiempo. Debes buscar recursos en el bosque.'");
-            System.out.println("==================================================\n");
-
-            jugador.recibirDanio(-jugador.getVidaMaxima()); 
-            this.tutorialCompletado = true;
-
-            cambiarEscenario(EscenarioFactory.crearEscenario(TipoEscenario.BOSQUE), 50, 50);
-        }
-    }
-
-    /**
-     * Cambia la referencia del escenario actual y reubica al jugador
-     */
     public void cambiarEscenario(Escenario nuevoEscenario, int spawnX, int spawnY) {
         this.escenarioActual = nuevoEscenario;
         this.jugador.setX(spawnX);
         this.jugador.setY(spawnY);
-
         this.escenarioActual.iniciarEscenario(jugador);
         this.escenarioActual.aplicarEfectoAmbiente(jugador);
     }
 
-    // Getters
-    public Escenario getEscenarioActual() {
-        return escenarioActual;
-    }
 
-    public boolean isTutorialCompletado() {
-        return tutorialCompletado;
-    }
+public Escenario getEscenarioActual() { return escenarioActual; }
 }
 
-/*  Este archivo es la clase controladora central de la navegación y flujo del juego 
-(GestorEscenarios.java), responsable de conectar las acciones del jugador en el mapa 2D 
-con la lógica de los biomas y eventos.
 
-Qué hace paso a paso?
-1_ Inicialización e Inyección de Dependencias (Constructor):
-  .Recibe el Hero y el EvaluadorEncuentro desde afuera (Inyección de Dependencias).
-  .Arranca la partida en el escenario inicial de la CARRETA instanciándolo 
-   mediante EscenarioFactory.
-  .Inicializa la bandera tutorialCompletado = false.
-2_ Movimiento del Jugador (moverJugador):
-  .Actualiza las coordenadas del jugador.
-  .Si el tutorial ya terminó, verifica si el jugador cruzó los límites del mapa para cambiar de bioma.
-  .Consulta al EvaluadorEncuentro si hay un encuentro en la nueva posición.
-3_ Transición de Mapas (verificarTransicionDeMapas):
-  .Si el jugador cruza los límites del mapa (x >= 95 o x <= 5), cambia al escenario correspondiente 
-  (CALABOZO o PANTANO) y lo reubica. 
-4_ Fin del Tutorial (procesarFinTutorial):
-  .Detecta si el jugador fue derrotado durante la batalla de la carreta. 
-  .Si el jugador muere durante el tutorial, se activa un evento narrativo que lo rescata y lo 
-  transporta al BOSQUE.
-5_ Cambio de Escenario (cambiarEscenario):
-   Reemplaza el objeto escenarioActual por el nuevo bioma, reubica las coordenadas del personaje 
-   en el nuevo punto de aparición (spawn) e inicializa los efectos del entorno.
- */
