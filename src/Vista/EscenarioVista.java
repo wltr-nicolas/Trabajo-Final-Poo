@@ -18,9 +18,12 @@ public class EscenarioVista extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.nombreEscenario = gestorEscenarios.getEscenarioActual().getNombre();
         this.add(new JLabel("Nombre del escenario: " + this.nombreEscenario));
+        this.addKeyListener(new ManejadorTecladoMapa(gestorEscenarios));
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);     
         this.setVisible(true);
+        this.setFocusable(true);
+        this.requestFocusInWindow();
     }
 
 }

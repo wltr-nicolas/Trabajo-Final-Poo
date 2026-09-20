@@ -13,6 +13,7 @@ public class GestorEscenarios {
     private Hero jugador;
     private EvaluadorEncuentro evaluadorEncuentro;
     private boolean tutorialCompletado = false;
+    private EstadoJuego estadoJuego = EstadoJuego.MAPA; // Estado inicial del juego
 
    public GestorEscenarios(Hero jugador, EvaluadorEncuentro evaluadorEncuentro) {
     this.jugador = jugador;
@@ -42,7 +43,7 @@ public ResultadoMovimiento moverJugador(int nuevoX, int nuevoY) {
     if (huboRescate) {
         return ResultadoMovimiento.RESCATE_TUTORIAL;
     }
-    // si llegamos hasta acá, es porque NO hubo rescate (el return de arriba ya filtró ese caso)
+    // si llegamos hasta acá, es porque NO hubo rescate (el return de arriba ya filtró ese case)
 
     this.jugador.setX(nuevoX);
     this.jugador.setY(nuevoY);
@@ -66,7 +67,6 @@ public enum ResultadoMovimiento { //PREGUNTARLE AL PROFESOR SI LO SACO (HACER UN
     TRANSICION_ESCENARIO,
     SIN_EVENTO
 }
-
 
 private boolean verificarTransicionDeMapas(int x, int y) {
     for (TransicionMapa transicion : escenarioActual.getTransiciones()) {
@@ -92,6 +92,10 @@ private boolean verificarTransicionDeMapas(int x, int y) {
 
 
 public Escenario getEscenarioActual() { return escenarioActual; }
+public EstadoJuego getEstadoJuego() { return estadoJuego; }
+
+public int getPosicionJugadorX() { return jugador.getX(); }
+public int getPosicionJugadorY() { return jugador.getY(); }
 }
 
 
