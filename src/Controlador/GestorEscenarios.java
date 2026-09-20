@@ -37,26 +37,30 @@ public void posicionInicial() {
     this.jugador.setY(escenarioActual.getSpawnY());
    }
 
-public boolean moverJugador(int nuevoX, int nuevoY) {
-    boolean huboRescate = procesarFinTutorial(); //  llamada, resultado guardado
+public ResultadoMovimiento moverJugador(int nuevoX, int nuevoY) {
+    boolean huboRescate = procesarFinTutorial();
     if (huboRescate) {
-        return true; // cortamos ACÁ, antes de tocar la posición con nuevoX/nuevoY
+        return ResultadoMovimiento.RESCATE_TUTORIAL;
     }
+    // si llegamos hasta acá, es porque NO hubo rescate (el return de arriba ya filtró ese caso)
 
     this.jugador.setX(nuevoX);
     this.jugador.setY(nuevoY);
 
     if (evaluadorEncuentro.hayEncuentro(nuevoX, nuevoY)) {
-        return true; // Se encontró un encuentro, se detiene el movimiento y se inicia el combate
-        // acá se conecta el combate más adelante
+        return ResultadoMovimiento.ENCUENTRO;
+    }
+    // si llegamos hasta acá, es porque NO hubo rescate NI encuentro
+
+    boolean huboTransicion = verificarTransicionDeMapas(nuevoX, nuevoY);
+    if (huboTransicion) {
+        return ResultadoMovimiento.TRANSICION_ESCENARIO;
     } else {
-         // No hay encuentro, el jugador puede seguir moviéndose
-        verificarTransicionDeMapas(nuevoX, nuevoY);
-        return false; // No hubo encuentro, el jugador puede seguir moviéndose  
+        return ResultadoMovimiento.SIN_EVENTO;
     }
 }
 
-public enum ResultadoMovimiento {
+public enum ResultadoMovimiento { //PREGUNTARLE AL PROFESOR SI LO SACO (HACER UN ENUM.JAVA EN CONTROLADORES O MODELOS) O ESTA BIEN DEJARLO
     ENCUENTRO, 
     RESCATE_TUTORIAL, 
     TRANSICION_ESCENARIO,

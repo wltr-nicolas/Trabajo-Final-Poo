@@ -1,6 +1,6 @@
 /*main: donde creas los botones, estableces las acciones y pruebas todo. */
-public class main {
-    public static void main(String[] args) {
+public class OtroNombre {
+    public static void otroNombre(String[] args) {
         /* Se crea un objeto Boton usando el patrón Builder
          El Builder permite configurar el botón paso a paso de forma flexible */
         boton fin_dialogo = new boton.builler("Finalizar diálogo")

@@ -6,7 +6,7 @@ public class Dado {
     private int caras;
     private int valor;
 
-    Random random = new Random();
+    private Random random = new Random();
 
     public Dado(int caras) {
         this.caras = caras;
@@ -20,7 +20,7 @@ public class Dado {
     }
 }
 
-/* Este archivo es la clase utility o de apoyo (Dado.java) dentro de tu paquete modelo.dado. 
+/* Este archivo es la clase utility o de apoyo (Dado.java) dentro de tu paquete modelo. 
 Simula el comportamiento de un dado de rol tradicional (como un dado de 6 caras, de 10 caras, 
 de 20 caras, etc.) utilizando el generador de números aleatorios de Java. 
 ¿Qué hace exactamente?
