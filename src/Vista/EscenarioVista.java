@@ -19,6 +19,8 @@ public class EscenarioVista extends JFrame {
         this.nombreEscenario = gestorEscenarios.getEscenarioActual().getNombre();
         this.add(new JLabel("Nombre del escenario: " + this.nombreEscenario));
         this.addKeyListener(new ManejadorTecladoMapa(gestorEscenarios));
+        MapaPersonaje mapaPersonaje = new MapaPersonaje(gestorEscenarios);
+        this.add(mapaPersonaje);        
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);     
         this.setVisible(true);

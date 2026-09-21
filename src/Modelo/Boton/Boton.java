@@ -1,4 +1,4 @@
-public class Boton {
+/*public class Boton {
     private String texto;  // Este es lo que se ve en el botón
     private String color;
     private Accion accion;
@@ -41,4 +41,4 @@ public class Boton {
             return new Boton(this);
         }
     }
-}
+} */

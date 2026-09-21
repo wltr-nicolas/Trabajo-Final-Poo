@@ -1,6 +1,6 @@
-public class Accionaceptar implements Accion {
+/*public class Accionaceptar implements Accion {
     @Override 
     public void ejecutar() {
         System.out.println("Finalizar dialogo");
     }
-}
+} */

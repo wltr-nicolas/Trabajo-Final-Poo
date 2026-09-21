@@ -1,3 +1,3 @@
-public interface Accion {
+/*public interface Accion {
     void ejecutar();
-}
+} */

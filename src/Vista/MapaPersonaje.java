@@ -1,16 +1,37 @@
 package Vista;
 
 import Controlador.GestorEscenarios;
-import javax.swing.JPanel;
+import java.awt.Graphics;
 
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
+import java.io.File;
+import java.io.IOException;
 
 public class MapaPersonaje extends JPanel  {
 
     private GestorEscenarios gestorEscenarios;
+    private BufferedImage spritePersonaje;    
     
     public MapaPersonaje (GestorEscenarios gestorEscenarios) {
         this.gestorEscenarios = gestorEscenarios;
-    } 
+
+        try {
+    this.spritePersonaje = ImageIO.read(new File("src/Assets/sprite/personaje_principal.png"));
+} catch (IOException e) {
+    System.out.println("No se pudo cargar el sprite del personaje: " + e.getMessage());
+}
+    }
     
     
+
+@Override
+protected void paintComponent(Graphics g) {
+    super.paintComponent(g); 
+    Graphics2D g2 = (Graphics2D) g;
+    g2.drawImage(spritePersonaje, 50, 50, this);
+}
+
 }
