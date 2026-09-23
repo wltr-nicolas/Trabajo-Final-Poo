@@ -1,6 +1,7 @@
 package Modelo.Personaje;
 
 import Modelo.Item;
+import Modelo.ResultadoDrop;
 
 public abstract class Enemigo extends Personaje {
 
@@ -11,8 +12,7 @@ public abstract class Enemigo extends Personaje {
 
     }
 
-    public abstract Item generarDrop(); // cada enemigo decide qué suelta
-
+    public abstract ResultadoDrop generarDrop();
     // GETTERS Y SETTERS (necesarios por el encapsulamiento)
     public Item getDrop() {
         return drop;

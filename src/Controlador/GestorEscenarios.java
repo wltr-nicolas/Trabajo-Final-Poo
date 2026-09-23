@@ -6,6 +6,9 @@ import Modelo.Escenario.Escenario;
 import Modelo.Personaje.Hero;
 import Modelo.Escenario.EscenarioFactory;
 import Modelo.Escenario.TransicionMapa;
+import Modelo.Personaje.Enemigo;
+import Modelo.Dado;
+import java.util.ArrayList;
 
 public class GestorEscenarios {
 
@@ -21,6 +24,19 @@ public class GestorEscenarios {
     this.escenarioActual = EscenarioFactory.crearEscenario(TipoEscenario.CARRETA);
     this.posicionInicial();
    }
+
+public GestorDeBatalla iniciarCombate() {
+    ArrayList<Enemigo> disponibles = escenarioActual.getEnemigosDisponibles();
+
+    if (disponibles.isEmpty()) {
+        throw new IllegalStateException("El escenario " + escenarioActual.getNombre() + " no tiene enemigos configurados.");
+    }
+
+    Dado dadoSeleccion = new Dado(disponibles.size());
+    Enemigo enemigoElegido = disponibles.get(dadoSeleccion.lanzar() - 1);
+
+    return new GestorDeBatalla(jugador, enemigoElegido);
+}//se agrega el gestor de batalla
 
 public boolean procesarFinTutorial() {
     if (!tutorialCompletado && !jugador.estaVivo()) {

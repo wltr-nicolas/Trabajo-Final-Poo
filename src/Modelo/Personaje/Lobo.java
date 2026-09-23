@@ -1,27 +1,36 @@
 package Modelo.Personaje;
+
 import Modelo.Item;
+import Modelo.Dado;
+import Modelo.ResultadoDrop;
 
 public class Lobo extends Enemigo {
 
+    private static final double PROBABILIDAD_POCION = 0.30;
+
     public Lobo(String nombre, int vidaMaxima, int tamanio, int x, int y, int danio, int armadura){
         super(nombre, vidaMaxima, tamanio, x, y, danio, armadura);
-        this.drop = new Item("Cabeza de Lobo", "Trofeo obtenido al derrotar un Lobo", 50);
+        this.drop = new Item("Piel de Lobo", "Objeto comerciable obtenido al derrotar un Lobo", 50);
     }
 
-    //  MÉTODOS ABSTRACTOS OBLIGATORIOS O NO FUNCIONA
-
     @Override
-    public Item generarDrop() {
-        // Aquí irá la lógica cuando el enemigo deja caer un drop (item)
-        System.out.println(getDrop() + " deja caer un item(drop)");
-        return getDrop();
+    public ResultadoDrop generarDrop() {
+        ResultadoDrop resultado = new ResultadoDrop();
+        resultado.agregarItem(getDrop());
+
+        Dado dadoProbabilidad = new Dado(100);
+        if (dadoProbabilidad.lanzar() <= PROBABILIDAD_POCION * 100) {
+            resultado.agregarItem(new Item("Pocion de vida", "Cura al beberla", 15));
+        }
+
+        return resultado;
     }
 
     @Override
     public void realizarAccionAtacar() {
-        // Aquí irá la lógica cuando el jugador elige atacar, hablar o huir desde la IGU
-        System.out.println(getDanio() + " realiza su acción atacar.");
+        System.out.println(getNombre() + " realiza su acción atacar.");
     }
+}
 
     /*@Override
     public void realizarAccionDefender() {
@@ -34,7 +43,7 @@ public class Lobo extends Enemigo {
         // Aquí irá la lógica para usar una poción o correr
         System.out.println(getNombre() + " realiza una acción adicional.");
     }*/ 
-}
+
 
     /*  Esta clase es una subclase concreta (Lobo.java) que representa a uno de los oponentes 
     del juego dentro de la capa de Modelo. Hereda de Enemigo (que a su vez hereda de Personaje), 

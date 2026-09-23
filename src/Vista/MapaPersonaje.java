@@ -19,7 +19,8 @@ public class MapaPersonaje extends JPanel  {
         this.gestorEscenarios = gestorEscenarios;
 
         try {
-    this.spritePersonaje = ImageIO.read(new File("src/Assets/sprite/south.png"));
+            this.spritePersonaje = ImageIO.read(getClass().getResourceAsStream("/Assets/sprite/south.png"));
+    //this.spritePersonaje = ImageIO.read(new File("src/Assets/sprite/south.png"));
 } catch (IOException e) {
     System.out.println("No se pudo cargar el sprite del personaje: " + e.getMessage());
 }

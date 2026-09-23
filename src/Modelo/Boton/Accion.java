@@ -1,3 +1,5 @@
-/*public interface Accion {
+package Modelo.Boton;
+
+public interface Accion {
     void ejecutar();
-} */
+}

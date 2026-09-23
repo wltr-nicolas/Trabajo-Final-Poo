@@ -1,33 +1,37 @@
 package Modelo.Personaje;
 
 import Modelo.Item;
+import Modelo.Dado;
+import Modelo.ResultadoDrop;
 
 public class Bandido extends Enemigo {
 
+    private static final double PROBABILIDAD_POCION = 0.30; //probabilidad de dropear pociones
+
     public Bandido(String nombre, int vidaMaxima, int tamanio, int x, int y, int danio, int armadura) {
         super(nombre, vidaMaxima, tamanio, x, y, danio, armadura);
-
-        this.drop = new Item("Oro", "Monedas de oro obtenidas al derrotar un Bandido", 20);
-        
-
     }
-
-        //  MÉTODOS ABSTRACTOS OBLIGATORIOS O NO FUNCIONA
 
     @Override
-    public Item generarDrop() {
-        // Aquí irá la lógica cuando el enemigo deja caer un drop (item)
-        System.out.println(getDrop() + " deja caer un item(drop)");
-        return (Item) getDrop();
+    public ResultadoDrop generarDrop() {
+        ResultadoDrop resultado = new ResultadoDrop();
+
+        Dado dadoOro = new Dado(20);
+        resultado.agregarOro(dadoOro.lanzar());
+
+        Dado dadoProbabilidad = new Dado(100);
+        if (dadoProbabilidad.lanzar() <= PROBABILIDAD_POCION * 100) {
+            resultado.agregarItem(new Item("Pocion de vida", "Cura al beberla", 15));
+        }
+
+        return resultado;
     }
-    
 
     @Override
     public void realizarAccionAtacar() {
-        // Aquí irá la lógica cuando el jugador elige atacar, hablar o huir desde la IGU
-        System.out.println(getDanio() + " realiza su acción atacar.");
+        System.out.println(getNombre() + " realiza su acción atacar, te pega : " + getDanio() + " de daño.");
     }
-
+}
     /*@Override
     public void realizarAccionDefender() {
         // Aquí irá la lógica cuando el jugador elige atacar, hablar o huir desde la IGU
@@ -41,7 +45,7 @@ public class Bandido extends Enemigo {
         System.out.println(getNombre() + " realiza una acción adicional.");
     }
         se saca porque los enemigos no tienen acciones adicionales*/
-}
+
 
     /*  Esta clase es una subclase concreta (Bandido.java) que representa a uno de los oponentes 
     del juego dentro de la capa de Modelo. Hereda de Enemigo (que a su vez hereda de Personaje), 
