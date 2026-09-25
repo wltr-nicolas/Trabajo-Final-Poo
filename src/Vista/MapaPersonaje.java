@@ -25,8 +25,14 @@ public class MapaPersonaje extends JPanel  {
     System.out.println("No se pudo cargar el sprite del personaje: " + e.getMessage());
 }
     }
-    
-    
+//se usa para saber que tamanio tiene el sprite asi no se va del area de juego el personaje
+public int getAnchoSprite() {
+    return spritePersonaje.getWidth();
+}
+
+public int getAltoSprite() {
+    return spritePersonaje.getHeight();
+}
 
 @Override
 protected void paintComponent(Graphics g) {

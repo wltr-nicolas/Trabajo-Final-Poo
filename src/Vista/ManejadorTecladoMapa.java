@@ -32,6 +32,14 @@ public class ManejadorTecladoMapa extends KeyAdapter {
                 x++;
                 break;
         }
+        //se establencen los limites de movimiento
+        int maxX = (mapaPersonaje.getWidth() - mapaPersonaje.getAnchoSprite()) / 8;
+        int maxY = (mapaPersonaje.getHeight() - mapaPersonaje.getAltoSprite()) / 6;
+
+        if (x < 0) x = 0;
+        if (y < 0) y = 0;
+        if (x > maxX) x = maxX;
+        if (y > maxY) y = maxY;
 
         gestorEscenarios.moverJugador(x, y);
 
