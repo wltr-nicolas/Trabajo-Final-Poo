@@ -32,7 +32,11 @@ public class MapaPersonaje extends JPanel  {
 protected void paintComponent(Graphics g) {
     super.paintComponent(g); 
     Graphics2D g2 = (Graphics2D) g;
-    g2.drawImage(spritePersonaje, 50, 50, this);
+
+    int pixelX = gestorEscenarios.getPosicionJugadorX() * 8;
+    int pixelY = gestorEscenarios.getPosicionJugadorY() * 6;
+
+    g2.drawImage(spritePersonaje, pixelX, pixelY, this);
 }
 
 }

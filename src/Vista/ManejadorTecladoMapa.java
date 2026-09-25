@@ -2,13 +2,15 @@ package Vista;
 
 import Controlador.GestorEscenarios;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.KeyAdapter;
 
-public class ManejadorTecladoMapa implements KeyListener {
+public class ManejadorTecladoMapa extends KeyAdapter {
     private GestorEscenarios gestorEscenarios;
+    private MapaPersonaje mapaPersonaje;
 
-    public ManejadorTecladoMapa(GestorEscenarios gestorEscenarios) {
+    public ManejadorTecladoMapa(GestorEscenarios gestorEscenarios, MapaPersonaje mapaPersonaje) {
         this.gestorEscenarios = gestorEscenarios;
+        this.mapaPersonaje = mapaPersonaje;
     }
 
     @Override
@@ -32,18 +34,13 @@ public class ManejadorTecladoMapa implements KeyListener {
         }
 
         gestorEscenarios.moverJugador(x, y);
-    }
-    
-    
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // No se necesita implementar
-    }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // No se necesita implementar
+        this.mapaPersonaje.repaint(); // Redibuja la vista inmediatamente con la nueva posición
+
     }
 
 
-}
+    }
+
+
+
