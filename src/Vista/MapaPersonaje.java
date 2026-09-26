@@ -2,13 +2,11 @@ package Vista;
 
 import Controlador.GestorEscenarios;
 import java.awt.Graphics;
-
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import java.awt.image.BufferedImage;
-import java.awt.Graphics2D;
-import java.io.File;
-import java.io.IOException;
 
 public class MapaPersonaje extends JPanel  {
 
@@ -29,7 +27,7 @@ public class MapaPersonaje extends JPanel  {
 public int getAnchoSprite() {
     return spritePersonaje.getWidth();
 }
-
+//se usa para saber que tamanio tiene el sprite asi no se va del area de juego el personaje
 public int getAltoSprite() {
     return spritePersonaje.getHeight();
 }

@@ -1,13 +1,16 @@
-package Vista;
+/*package Vista;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import Controlador.GestorEscenarios;
 
 public class EscenarioVista extends JFrame {
 
     private GestorEscenarios gestorEscenarios;
     private MapaPersonaje mapaPersonaje;
+    private ManejadorTecladoMapa manejadorTecladoMapa;
 
     public EscenarioVista(GestorEscenarios gestorEscenarios) {
         super("juego RPG 2D");
@@ -55,5 +58,114 @@ public class EscenarioVista extends JFrame {
         this.setVisible(true);
         this.setFocusable(true);
         this.requestFocusInWindow();
+    }
+}*/
+
+package Vista;
+
+import Controlador.GestorEscenarios;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.*;
+
+public class EscenarioVista extends JFrame {
+
+    private GestorEscenarios gestorEscenarios;
+    private MapaPersonaje mapaPersonaje;
+    private ManejadorTecladoMapa manejadorTecladoMapa;
+
+    private JPanel contenedorPrincipal;
+    private CardLayout cardLayout;
+
+    public EscenarioVista(GestorEscenarios gestorEscenarios) {
+        super("juego RPG 2D");
+        this.gestorEscenarios = gestorEscenarios;
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        cardLayout = new CardLayout();
+        contenedorPrincipal = new JPanel(cardLayout);
+
+        JPanel panelMapa = construirPanelMapa();
+        PanelPausa panelPausa = new PanelPausa(
+            () -> cardLayout.show(contenedorPrincipal, "MAPA"),
+            () -> System.out.println("Opciones: pendiente para más adelante"),
+            () -> System.exit(0)
+        );
+
+        contenedorPrincipal.add(panelMapa, "MAPA");
+        contenedorPrincipal.add(panelPausa, "PAUSA");
+
+        this.add(contenedorPrincipal);
+
+        configurarKeyBindings();
+
+        this.setSize(800, 600);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+    }
+
+    private JPanel construirPanelMapa() {
+        JPanel panelMapa = new JPanel(new BorderLayout());
+
+        JPanel panelSuperior = new JPanel(new BorderLayout());
+        panelSuperior.add(new JLabel("Turno: 1", SwingConstants.CENTER), BorderLayout.CENTER);
+        panelSuperior.add(new JLabel("Vida enemigo: --/--", SwingConstants.RIGHT), BorderLayout.EAST);
+        panelSuperior.setPreferredSize(new Dimension(800, 60));
+
+        mapaPersonaje = new MapaPersonaje(gestorEscenarios);
+        manejadorTecladoMapa = new ManejadorTecladoMapa(gestorEscenarios, mapaPersonaje);
+
+        JPanel panelInferior = new JPanel(new GridLayout(1, 3));
+        panelInferior.setPreferredSize(new Dimension(800, 150));
+
+        JTextArea log = new JTextArea("Historial del juego\nLog de combate");
+        log.setEditable(false);
+        panelInferior.add(new JScrollPane(log));
+
+        JPanel menuAcciones = new JPanel(new GridLayout(2, 1));
+        menuAcciones.add(new JButton("Atacar"));
+        menuAcciones.add(new JButton("Usar poción"));
+        panelInferior.add(menuAcciones);
+
+        JPanel inventario = new JPanel(new GridLayout(3, 3));
+        for (int i = 0; i < 9; i++) inventario.add(new JLabel("[ ]"));
+        panelInferior.add(inventario);
+
+        panelMapa.add(panelSuperior, BorderLayout.NORTH);
+        panelMapa.add(mapaPersonaje, BorderLayout.CENTER);
+        panelMapa.add(panelInferior, BorderLayout.SOUTH);
+
+        return panelMapa;
+    }
+
+    private void configurarKeyBindings() {
+        InputMap inputMap = contenedorPrincipal.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = contenedorPrincipal.getActionMap();
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0), "moverArriba");
+        actionMap.put("moverArriba", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) { manejadorTecladoMapa.mover(0, -1); }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_S, 0), "moverAbajo");
+        actionMap.put("moverAbajo", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) { manejadorTecladoMapa.mover(0, 1); }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0), "moverIzquierda");
+        actionMap.put("moverIzquierda", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) { manejadorTecladoMapa.mover(-1, 0); }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0), "moverDerecha");
+        actionMap.put("moverDerecha", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) { manejadorTecladoMapa.mover(1, 0); }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "pausar");
+        actionMap.put("pausar", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) { cardLayout.show(contenedorPrincipal, "PAUSA"); }
+        });
     }
 }

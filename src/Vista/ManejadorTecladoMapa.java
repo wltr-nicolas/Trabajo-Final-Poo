@@ -1,7 +1,6 @@
 package Vista;
 
 import Controlador.GestorEscenarios;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
 
 public class ManejadorTecladoMapa extends KeyAdapter {
@@ -12,8 +11,11 @@ public class ManejadorTecladoMapa extends KeyAdapter {
         this.gestorEscenarios = gestorEscenarios;
         this.mapaPersonaje = mapaPersonaje;
     }
+        public void mover(int dx, int dy) {
+        int x = gestorEscenarios.getPosicionJugadorX() + dx;
+        int y = gestorEscenarios.getPosicionJugadorY() + dy;
 
-    @Override
+    /*@Override
     public void keyPressed(KeyEvent e) {
         int x = gestorEscenarios.getPosicionJugadorX();
         int y = gestorEscenarios.getPosicionJugadorY();
@@ -31,7 +33,7 @@ public class ManejadorTecladoMapa extends KeyAdapter {
             case KeyEvent.VK_D:
                 x++;
                 break;
-        }
+        }*/
         //se establencen los limites de movimiento
         int maxX = (mapaPersonaje.getWidth() - mapaPersonaje.getAnchoSprite()) / 8;
         int maxY = (mapaPersonaje.getHeight() - mapaPersonaje.getAltoSprite()) / 6;
@@ -44,10 +46,7 @@ public class ManejadorTecladoMapa extends KeyAdapter {
         gestorEscenarios.moverJugador(x, y);
 
         this.mapaPersonaje.repaint(); // Redibuja la vista inmediatamente con la nueva posición
-
     }
-
-
     }
 
 
