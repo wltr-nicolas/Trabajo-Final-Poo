@@ -67,6 +67,7 @@ import Controlador.GestorEscenarios;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import javax.swing.*;
 
 public class EscenarioVista extends JFrame {
@@ -87,6 +88,8 @@ public class EscenarioVista extends JFrame {
         contenedorPrincipal = new JPanel(cardLayout);
 
         JPanel panelMapa = construirPanelMapa();
+        JPanel panelBatallaCompleto = construirPanelBatalla(List.of("Bandido")); // por ahora, un solo nombre
+
         PanelPausa panelPausa = new PanelPausa(
             () -> cardLayout.show(contenedorPrincipal, "MAPA"),
             () -> System.out.println("Opciones: pendiente para más adelante"),
@@ -94,6 +97,7 @@ public class EscenarioVista extends JFrame {
         );
 
         contenedorPrincipal.add(panelMapa, "MAPA");
+        contenedorPrincipal.add(panelBatallaCompleto, "BATALLA");
         contenedorPrincipal.add(panelPausa, "PAUSA");
 
         this.add(contenedorPrincipal);
@@ -103,6 +107,7 @@ public class EscenarioVista extends JFrame {
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        cardLayout.show(contenedorPrincipal, "BATALLA");//es para probar si anda la pantalla de batalla, ya que no hay trigger todavia
     }
 
     private JPanel construirPanelMapa() {
@@ -123,10 +128,27 @@ public class EscenarioVista extends JFrame {
         log.setEditable(false);
         panelInferior.add(new JScrollPane(log));
 
-        JPanel menuAcciones = new JPanel(new GridLayout(2, 1));
-        menuAcciones.add(new JButton("Atacar"));
-        menuAcciones.add(new JButton("Usar poción"));
-        panelInferior.add(menuAcciones);
+        CardLayout cardLayoutContextual = new CardLayout();
+        JPanel menuContextual = new JPanel(cardLayoutContextual);
+
+        PanelDialogo panelDialogo = new PanelDialogo(
+            () -> System.out.println("Diálogo común: pendiente"),
+            () -> System.out.println("Diálogo de misión: pendiente"),
+            () -> System.out.println("Menú compra/venta: pendiente"),
+            () -> System.out.println("Adiós: pendiente")
+        );
+
+        PanelAccionesCombate panelCombate = new PanelAccionesCombate(
+            () -> System.out.println("Atacar: pendiente"),
+            () -> System.out.println("Poción de vida: pendiente"),
+            () -> System.out.println("Poción de armadura: pendiente"),
+            () -> System.out.println("Finalizar turno: pendiente")
+        );
+
+        menuContextual.add(panelDialogo, "DIALOGO");
+        menuContextual.add(panelCombate, "COMBATE");
+
+        panelInferior.add(menuContextual);
 
         JPanel inventario = new JPanel(new GridLayout(3, 3));
         for (int i = 0; i < 9; i++) inventario.add(new JLabel("[ ]"));
@@ -137,6 +159,36 @@ public class EscenarioVista extends JFrame {
         panelMapa.add(panelInferior, BorderLayout.SOUTH);
 
         return panelMapa;
+    }
+
+    private JPanel construirPanelBatalla(List<String> nombresEnemigos) {
+        JPanel panelBatallaCompleto = new JPanel(new BorderLayout());
+
+        PanelBatalla panelBatalla = new PanelBatalla(nombresEnemigos);
+        panelBatallaCompleto.add(panelBatalla, BorderLayout.CENTER);
+
+        JPanel panelInferior = new JPanel(new GridLayout(1, 3));
+        panelInferior.setPreferredSize(new Dimension(800, 150));
+
+        JTextArea log = new JTextArea("Log de combate");
+        log.setEditable(false);
+        panelInferior.add(new JScrollPane(log));
+
+        PanelAccionesCombate panelAcciones = new PanelAccionesCombate(
+            () -> System.out.println("Atacar: pendiente"),
+            () -> System.out.println("Poción de vida: pendiente"),
+            () -> System.out.println("Poción de armadura: pendiente"),
+            () -> System.out.println("Finalizar turno: pendiente")
+        );
+        panelInferior.add(panelAcciones);
+
+        JPanel inventario = new JPanel(new GridLayout(3, 3));
+        for (int i = 0; i < 9; i++) inventario.add(new JLabel("[ ]"));
+        panelInferior.add(inventario);
+
+        panelBatallaCompleto.add(panelInferior, BorderLayout.SOUTH);
+
+        return panelBatallaCompleto;
     }
 
     private void configurarKeyBindings() {
@@ -168,4 +220,5 @@ public class EscenarioVista extends JFrame {
             public void actionPerformed(ActionEvent e) { cardLayout.show(contenedorPrincipal, "PAUSA"); }
         });
     }
+    
 }
