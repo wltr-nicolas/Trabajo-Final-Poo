@@ -8,16 +8,18 @@ public class PanelDialogo extends JPanel {
     public PanelDialogo(Runnable accionComun, Runnable accionMision, Runnable accionTienda, Runnable accionAdios) {
         setLayout(new GridLayout(4, 1));
 
-        JButton btnComun = new JButton("Hablar");
+        String rutaTextura = "/Assets/FondosInterfaz/TexturaBoton.png";
+
+        BotonConTextura btnComun = new BotonConTextura("Hablar", rutaTextura);
         btnComun.addActionListener(e -> accionComun.run());
 
-        JButton btnMision = new JButton("Preguntar por misión");
+        BotonConTextura btnMision = new BotonConTextura("Preguntar por misión", rutaTextura);
         btnMision.addActionListener(e -> accionMision.run());
 
-        JButton btnTienda = new JButton("Tienda");
+        BotonConTextura btnTienda = new BotonConTextura("Tienda", rutaTextura);
         btnTienda.addActionListener(e -> accionTienda.run());
 
-        JButton btnAdios = new JButton("Adiós");
+        BotonConTextura btnAdios = new BotonConTextura("Adiós", rutaTextura);
         btnAdios.addActionListener(e -> accionAdios.run());
 
         add(btnComun);

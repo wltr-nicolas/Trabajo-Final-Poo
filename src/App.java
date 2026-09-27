@@ -1,9 +1,8 @@
 
-import java.util.Random;
+import Controlador.GestorEscenarios;
 import Modelo.Dado;
 import Modelo.Escenario.ZonaCombate;
 import Modelo.Personaje.Hero;
-import Controlador.GestorEscenarios;
 import Vista.EscenarioVista;
 
 

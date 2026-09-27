@@ -107,7 +107,7 @@ public class EscenarioVista extends JFrame {
             () -> System.exit(0)
         );
 
-contenedorPrincipal.add(panelMenuPrincipal, "MENU_PRINCIPAL");
+        contenedorPrincipal.add(panelMenuPrincipal, "MENU_PRINCIPAL");
 
         contenedorPrincipal.add(panelMapa, "MAPA");
         contenedorPrincipal.add(panelBatallaCompleto, "BATALLA");
@@ -126,36 +126,30 @@ contenedorPrincipal.add(panelMenuPrincipal, "MENU_PRINCIPAL");
     private JPanel construirPanelMapa() {
         JPanel panelMapa = new JPanel(new BorderLayout());
 
-        JPanel panelSuperior = new JPanel(new BorderLayout());
-        panelSuperior.add(new JLabel("Turno: 1", SwingConstants.CENTER), BorderLayout.CENTER);
-        panelSuperior.add(new JLabel("Vida enemigo: --/--", SwingConstants.RIGHT), BorderLayout.EAST);
-        panelSuperior.setPreferredSize(new Dimension(800, 60));
-
         mapaPersonaje = new MapaPersonaje(gestorEscenarios);
         manejadorTecladoMapa = new ManejadorTecladoMapa(gestorEscenarios, mapaPersonaje);
 
         JPanel panelInferior = new JPanel(new GridLayout(1, 3));
         panelInferior.setPreferredSize(new Dimension(800, 150));
 
-        JTextArea log = new JTextArea("Historial del juego\nLog de combate");
-        log.setEditable(false);
-        panelInferior.add(new JScrollPane(log));
+        PanelLog panelLog = new PanelLog();
+        panelInferior.add(panelLog);
 
         CardLayout cardLayoutContextual = new CardLayout();
         JPanel menuContextual = new JPanel(cardLayoutContextual);
 
-        PanelDialogo panelDialogo = new PanelDialogo(
-            () -> System.out.println("Diálogo común: pendiente"),
-            () -> System.out.println("Diálogo de misión: pendiente"),
-            () -> System.out.println("Menú compra/venta: pendiente"),
-            () -> System.out.println("Adiós: pendiente")
+       PanelDialogo panelDialogo = new PanelDialogo(
+            () -> panelLog.agregar("El tabernero te saluda."),
+            () -> panelLog.agregar("Preguntas por la misión."),
+            () -> panelLog.agregar("Entras a la tienda."),
+            () -> panelLog.agregar("Te despides.")
         );
 
         PanelAccionesCombate panelCombate = new PanelAccionesCombate(
-            () -> System.out.println("Atacar: pendiente"),
-            () -> System.out.println("Poción de vida: pendiente"),
-            () -> System.out.println("Poción de armadura: pendiente"),
-            () -> System.out.println("Finalizar turno: pendiente")
+            () -> panelLog.agregar("Atacas al enemigo."),
+            () -> panelLog.agregar("Usas una poción de vida."),
+            () -> panelLog.agregar("Usas una poción de armadura."),
+            () -> panelLog.agregar("Finalizas el turno.")
         );
 
         menuContextual.add(panelDialogo, "DIALOGO");
@@ -163,11 +157,10 @@ contenedorPrincipal.add(panelMenuPrincipal, "MENU_PRINCIPAL");
 
         panelInferior.add(menuContextual);
 
-        JPanel inventario = new JPanel(new GridLayout(3, 3));
+        JPanel inventario = new PanelConFondo(new GridLayout(3, 3), "/Assets/FondosInterfaz/MatrizInventario.png");
         for (int i = 0; i < 9; i++) inventario.add(new JLabel("[ ]"));
         panelInferior.add(inventario);
 
-        panelMapa.add(panelSuperior, BorderLayout.NORTH);
         panelMapa.add(mapaPersonaje, BorderLayout.CENTER);
         panelMapa.add(panelInferior, BorderLayout.SOUTH);
 
@@ -180,22 +173,27 @@ contenedorPrincipal.add(panelMenuPrincipal, "MENU_PRINCIPAL");
         PanelBatalla panelBatalla = new PanelBatalla(nombresEnemigos);
         panelBatallaCompleto.add(panelBatalla, BorderLayout.CENTER);
 
+        JPanel panelSuperior = new JPanel(new BorderLayout());
+        panelSuperior.add(new JLabel("Turno: 1", SwingConstants.CENTER), BorderLayout.CENTER);
+        panelSuperior.add(new JLabel("Vida enemigo: --/--", SwingConstants.RIGHT), BorderLayout.EAST);
+        panelSuperior.setPreferredSize(new Dimension(800, 30));
+        panelBatallaCompleto.add(panelSuperior, BorderLayout.NORTH);
+
         JPanel panelInferior = new JPanel(new GridLayout(1, 3));
         panelInferior.setPreferredSize(new Dimension(800, 150));
 
-        JTextArea log = new JTextArea("Log de combate");
-        log.setEditable(false);
-        panelInferior.add(new JScrollPane(log));
+        PanelLog panelLog = new PanelLog();
+        panelInferior.add(panelLog);
 
         PanelAccionesCombate panelAcciones = new PanelAccionesCombate(
-            () -> System.out.println("Atacar: pendiente"),
-            () -> System.out.println("Poción de vida: pendiente"),
-            () -> System.out.println("Poción de armadura: pendiente"),
-            () -> System.out.println("Finalizar turno: pendiente")
+            () -> panelLog.agregar("Atacas al enemigo."),
+            () -> panelLog.agregar("Usas una poción de vida."),
+            () -> panelLog.agregar("Usas una poción de armadura."),
+            () -> panelLog.agregar("Finalizas el turno.")
         );
         panelInferior.add(panelAcciones);
 
-        JPanel inventario = new JPanel(new GridLayout(3, 3));
+        JPanel inventario = new PanelConFondo(new GridLayout(3, 3), "/Assets/FondosInterfaz/MatrizInventario.png");
         for (int i = 0; i < 9; i++) inventario.add(new JLabel("[ ]"));
         panelInferior.add(inventario);
 

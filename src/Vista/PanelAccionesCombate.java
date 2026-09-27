@@ -8,20 +8,22 @@ public class PanelAccionesCombate extends JPanel {
     public PanelAccionesCombate(Runnable accionAtacar, Runnable accionPocionVida, Runnable accionPocionArmadura, Runnable accionFinalizarTurno) {
         setLayout(new GridLayout(4, 1));
 
+        String rutaTextura = "/Assets/FondosInterfaz/TexturaBoton.png";
+
         ImageIcon iconoAtacar = escalarIcono("/Assets/ImagenesVarias/espadasCruzadasX.png", 32, 32);
         ImageIcon iconoPocionVida = escalarIcono("/Assets/ImagenesVarias/pocionRoja.png", 32, 32);
         ImageIcon iconoPocionArmadura = escalarIcono("/Assets/ImagenesVarias/pocionGris.png", 32, 32);
 
-        JButton btnAtacar = new JButton("Atacar", iconoAtacar);
+        BotonConTextura btnAtacar = new BotonConTextura("Atacar", iconoAtacar, rutaTextura);
         btnAtacar.addActionListener(e -> accionAtacar.run());
 
-        JButton btnPocionVida = new JButton("Poción de vida", iconoPocionVida);
+        BotonConTextura btnPocionVida = new BotonConTextura("Poción de vida", iconoPocionVida, rutaTextura);
         btnPocionVida.addActionListener(e -> accionPocionVida.run());
 
-        JButton btnPocionArmadura = new JButton("Poción de armadura", iconoPocionArmadura);
+        BotonConTextura btnPocionArmadura = new BotonConTextura("Poción de armadura", iconoPocionArmadura, rutaTextura);
         btnPocionArmadura.addActionListener(e -> accionPocionArmadura.run());
 
-        JButton btnFinalizarTurno = new JButton("Finalizar turno");
+        BotonConTextura btnFinalizarTurno = new BotonConTextura("Finalizar turno", rutaTextura);
         btnFinalizarTurno.addActionListener(e -> accionFinalizarTurno.run());
 
         add(btnAtacar);
