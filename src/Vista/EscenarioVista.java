@@ -92,10 +92,22 @@ public class EscenarioVista extends JFrame {
         JPanel panelBatallaCompleto = construirPanelBatalla(List.of("Bandido")); // por ahora, un solo nombre
 
         PanelPausa panelPausa = new PanelPausa(
+            "Continuar",
+            "/Assets/FondosEscenarios/pantallaInicio.png",
             () -> cardLayout.show(contenedorPrincipal, "MAPA"),
             () -> System.out.println("Opciones: pendiente para más adelante"),
             () -> System.exit(0)
         );
+
+        PanelPausa panelMenuPrincipal = new PanelPausa(
+            "Nueva Partida",
+            "/Assets/FondosEscenarios/pantallaInicio.png",
+            () -> System.out.println("Nueva partida: pendiente"),
+            () -> System.out.println("Opciones: pendiente para más adelante"),
+            () -> System.exit(0)
+        );
+
+contenedorPrincipal.add(panelMenuPrincipal, "MENU_PRINCIPAL");
 
         contenedorPrincipal.add(panelMapa, "MAPA");
         contenedorPrincipal.add(panelBatallaCompleto, "BATALLA");

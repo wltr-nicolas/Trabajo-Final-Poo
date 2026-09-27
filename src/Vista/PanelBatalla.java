@@ -1,23 +1,40 @@
 package Vista;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class PanelBatalla extends JPanel {
 
-    public PanelBatalla(List<String> nombresEnemigos) {
-        setLayout(new GridLayout(1, nombresEnemigos.size() + 1)); // +1 por la columna del héroe
+    private BufferedImage fondo;
 
-        // Columna del héroe (siempre una sola, a la izquierda)
+    public PanelBatalla(List<String> nombresEnemigos) {
+        setLayout(new GridLayout(1, nombresEnemigos.size() + 1));
+
+        try {
+            fondo = ImageIO.read(getClass().getResourceAsStream("/Assets/FondosEscenarios/Mazmorra.png"));
+        } catch (IOException e) {
+            System.out.println("No se pudo cargar el fondo de batalla: " + e.getMessage());
+        }
+
         JPanel columnaHeroe = new JPanel();
         columnaHeroe.setOpaque(false);
         columnaHeroe.add(crearFigura("Héroe"));
         add(columnaHeroe);
 
-        // Una columna por cada enemigo de la lista
         for (String nombreEnemigo : nombresEnemigos) {
             add(crearColumnaEnemigo(nombreEnemigo));
+        }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (fondo != null) {
+            g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
         }
     }
 
