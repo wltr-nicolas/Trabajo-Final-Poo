@@ -75,7 +75,7 @@ public class EscenarioVista extends JFrame {
     private GestorEscenarios gestorEscenarios;
     private MapaPersonaje mapaPersonaje;
     private ManejadorTecladoMapa manejadorTecladoMapa;
-
+    private String cartaActual = "BATALLA";
     private JPanel contenedorPrincipal;
     private CardLayout cardLayout;
 
@@ -86,6 +86,7 @@ public class EscenarioVista extends JFrame {
 
         cardLayout = new CardLayout();
         contenedorPrincipal = new JPanel(cardLayout);
+        
 
         JPanel panelMapa = construirPanelMapa();
         JPanel panelBatallaCompleto = construirPanelBatalla(List.of("Bandido")); // por ahora, un solo nombre
@@ -218,6 +219,14 @@ public class EscenarioVista extends JFrame {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "pausar");
         actionMap.put("pausar", new AbstractAction() {
             public void actionPerformed(ActionEvent e) { cardLayout.show(contenedorPrincipal, "PAUSA"); }
+        });
+        // TEMPORAL: solo para probar el cambio de vista, sacar antes de la entrega final
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_V, 0), "cambiarVista");
+        actionMap.put("cambiarVista", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                cartaActual = cartaActual.equals("MAPA") ? "BATALLA" : "MAPA";
+                cardLayout.show(contenedorPrincipal, cartaActual);
+            }
         });
     }
     
