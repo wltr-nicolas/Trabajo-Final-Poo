@@ -1,4 +1,4 @@
-package vista;
+package Vista;
 
 public class ElementoCarreta extends ElementoEscenario {
 
