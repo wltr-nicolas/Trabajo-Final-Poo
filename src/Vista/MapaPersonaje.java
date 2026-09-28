@@ -19,7 +19,7 @@ public class MapaPersonaje extends JPanel {
 
         try {
             this.spritePersonaje = ImageIO.read(getClass().getResourceAsStream("/Assets/sprite/south.png"));
-            this.fondo = ImageIO.read(getClass().getResourceAsStream("/Assets/ImagenesVarias/TopDownBosque.png"));
+            this.fondo = ImageIO.read(getClass().getResourceAsStream("/Assets/ImagenesVarias/TopDownBosque1.png"));
         } catch (IOException e) {
             System.out.println("No se pudo cargar una imagen: " + e.getMessage());
         }

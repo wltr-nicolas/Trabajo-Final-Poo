@@ -15,7 +15,7 @@ public class PanelBatalla extends JPanel {
         setLayout(new GridLayout(1, nombresEnemigos.size() + 1));
 
         try {
-            fondo = ImageIO.read(getClass().getResourceAsStream("/Assets/FondosEscenarios/Mazmorra.png"));
+            fondo = ImageIO.read(getClass().getResourceAsStream("/Assets/ImagenesVarias/Mazmorra1.png"));
         } catch (IOException e) {
             System.out.println("No se pudo cargar el fondo de batalla: " + e.getMessage());
         }
