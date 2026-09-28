@@ -1,6 +1,6 @@
 package Modelo.Personaje;
-import java.util.ArrayList;
 import Modelo.Item;
+import java.util.ArrayList;
 
 public abstract class Personaje {
     
@@ -34,7 +34,7 @@ Solución: Aplicar encapsulamiento estricto definiendo los atributos como privat
         this.danio = danio;
         this.armadura = armadura;
         this.items = new ArrayList<>();
-
+        
     }
     
     /*public void recibirDanio(int cantidad) {
