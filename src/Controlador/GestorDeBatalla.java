@@ -1,9 +1,8 @@
 package Controlador;
 
-import Modelo.Personaje.Hero;
-import Modelo.Personaje.Enemigo;
 import Modelo.Dado;
-import Modelo.ResultadoDrop;
+import Modelo.Personaje.Enemigo;
+import Modelo.Personaje.Hero;
 
 public class GestorDeBatalla {
 
@@ -71,9 +70,9 @@ public class GestorDeBatalla {
     private void verificarFinDeCombate() {
         if (!enemigo.estaVivo()) {
             combateTerminado = true;
-            ResultadoDrop loot = enemigo.generarDrop();
+          //  ResultadoDrop loot = enemigo.generarDrop();
             System.out.println("¡" + enemigo.getNombre() + " fue derrotado!");
-            System.out.println("Botín obtenido: " + loot);
+       //     System.out.println("Botín obtenido: " + loot);
         } else if (!hero.estaVivo()) {
             combateTerminado = true;
             System.out.println("¡" + hero.getNombre() + " ha muerto!");
