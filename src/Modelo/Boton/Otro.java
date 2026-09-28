@@ -1,8 +1,8 @@
-/*main: donde creas los botones, estableces las acciones y pruebas todo. */
-public class Main {
+/*main: donde creas los botones, estableces las acciones y pruebas todo. 
+public class Otro {
     public static void main(String[] args) {
-        /* Se crea un objeto Boton usando el patrón Builder
-         El Builder permite configurar el botón paso a paso de forma flexible */
+         Se crea un objeto Boton usando el patrón Builder
+         El Builder permite configurar el botón paso a paso de forma flexible 
         Boton fin_dialogo = new Boton.Builder("Finalizar diálogo")
             .setcolor("blue")
 
@@ -13,7 +13,7 @@ public class Main {
             .build();
 
             /* Se ejecuta el método click() del botón
-             Esto dispara la acción asociada (AccionAceptar) que imprime "Finalizar dialogo*/
+             Esto dispara la acción asociada (AccionAceptar) que imprime "Finalizar dialogo
         fin_dialogo.click();
     }
-}
+}*/
